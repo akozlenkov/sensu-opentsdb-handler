@@ -1,0 +1,18 @@
+builds:
+  - # First Build
+    env:
+      - CGO_ENABLED=0
+    main: src/sensu-opentsdb-handler/main.go
+    binary: bin/{{ .ProjectName }}
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+
+checksum:
+  name_template: "{{ .ProjectName }}_{{ .Version }}_sha256-checksums.txt"
+
+archive:
+  format: tar.gz
+  files: []

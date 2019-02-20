@@ -1,1 +1,6 @@
-# Created by .ignore support plugin (hsz.mobi)
+bin
+pkg
+dist
+src/sensu-opentsdb-handler/vendor
+.idea
+sensu-opentsdb-handler.iml
