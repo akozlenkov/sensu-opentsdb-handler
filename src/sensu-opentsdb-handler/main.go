@@ -20,16 +20,15 @@ var (
 )
 
 type TSDBMetric struct {
-	Metric		string	`json:"metric"`
-	Value		float64	`json:"value"`
-	Timestamp 	int64	`json:"timestamp"`
-	Tags		map[string]string	`json:"tags"`
+	Metric    string            `json:"metric"`
+	Value     float64           `json:"value"`
+	Timestamp int64             `json:"timestamp"`
+	Tags      map[string]string `json:"tags"`
 }
 
 func main() {
 	rootCmd := configureRootCommand()
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(1)
 	}
 }
@@ -58,12 +57,10 @@ func configureRootCommand() *cobra.Command {
 
 func run(cmd *cobra.Command, args []string) error {
 	if len(args) != 0 {
-		_ = cmd.Help()
 		return fmt.Errorf("invalid argument(s) received")
 	}
 
 	if addr == "" {
-		_ = cmd.Help()
 		return fmt.Errorf("opentsdb addr not set")
 	}
 
@@ -116,7 +113,7 @@ func sendMetrics(event *types.Event) error {
 		return err
 	}
 
-	req, err := http.NewRequest("POST", addr + "/api/put", bytes.NewBuffer(jsonStr))
+	req, err := http.NewRequest("POST", addr+"/api/put", bytes.NewBuffer(jsonStr))
 	if err != nil {
 		return err
 	}
@@ -127,7 +124,7 @@ func sendMetrics(event *types.Event) error {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: insecureSkipVerify},
 	}
 
-	client := &http.Client{ Transport: tr }
+	client := &http.Client{Transport: tr}
 	if _, err = client.Do(req); err != nil {
 		return err
 	}
